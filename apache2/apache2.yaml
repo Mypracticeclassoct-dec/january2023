@@ -1,7 +1,7 @@
 --- 
 - name: installing apache2 server in node
   hosts: all
-  becomes: true
+  become: true
   tasks:
     - name: install apache2
       ansible.builtin.apt:
