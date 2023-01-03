@@ -1,0 +1,10 @@
+---
+- name: Installing php in ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: Installing php
+      ansible.builtin.apt:
+        name: php
+        update_cache: yes
+        state: present
