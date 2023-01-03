@@ -1,0 +1,10 @@
+--- 
+- name: installing apache2 server in node
+  hosts: all
+  becomes: true
+  tasks:
+    - name: install apache2
+      ansible.builtin.apt:
+        name: apache2
+        update_cache: yes
+        state: present
