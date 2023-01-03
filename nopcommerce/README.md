@@ -28,3 +28,35 @@ CMD ["dotnet","/Nop/Nop.Web.dll"]
  ### for the database to give the connections to remote host follow the link `https://www.digitalocean.com/community/tutorials/how-to-allow-remote-access-to-mysql`.
 
  follow the steps provided in the above website to give access to user from remote hostes.
+
+-----
+ * To Grant permissions to user created by user 'GRANT PRIVILEGES ON *.* TO 'vamsi'@'%';'
+ * To delete a mysql user follow the steps :
+1. First, connect to the MySQL database as the root user:
+
+   `mysql -u root -p`
+
+If root does not have access to MySQL on your machine, you can use sudo mysql
+
+2. Enter the password when prompted and hit Enter. A MySQL shell loads.
+
+3. Find the exact name of the user you want to remove by running a command that lists users from the MySQL server:
+
+    `SELECT User, Host FROM mysql.user;`
+4. The output displays all users. Locate the name you want to remove, in our case it is MySQLtest. Replace username in the following command with your user:
+
+    `DROP USER 'username'@'host';`
+----
+* To create a user follow the steps : 
+   1. `CREATE USER 'vamsi'@'localhost' IDENTIFIED BY 'Password@1234';`.
+   2. `ALTER USER 'vamsi'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Password@1234';`.
+   3. To grant privilges: `GRANT ALL PRIVILEGES ON *.* TO 'vamsi'@'localhost';`.
+   4. To grant all permissions `GRANT CREATE, ALTER, DROP, INSERT, UPDATE, INDEX, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'vamsi'@'localhost' WITH GRANT OPTION;`.
+   5. `FLUSH PRIVILEGES;`
+   6. exit
+----
+activity :
+ ansible playbook :  follow the website:`https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-22-04`.
+  1. install apache2 and skip mysql
+  2. install PHP  no need to setup virtual host
+      sudo nano /var/www/html/info.php
