@@ -18,7 +18,9 @@ sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ```
 ----
-* To ping the node : "ansible -i inventory -k -m ping all".
-* To check syntax the ansible playbook.yaml file `ansible-playbook -i hosts --syntax-check php.yaml`.
-* To run the  ansible playbook `ansible-playbook -i hosts  php.yaml`.
+*   To ping the node : "ansible -i inventory -k -m ping all".
+*   To check syntax the ansible playbook.yaml file `ansible-playbook -i hosts --syntax-check php.yaml`.
+*   To run the  ansible playbook `ansible-playbook -i hosts  php.yaml`.
 
+*  https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#examples for ansible copy file module.
+*  https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html#examples to create a file in a directory.
