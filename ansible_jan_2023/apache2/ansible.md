@@ -10,10 +10,15 @@
 * After changing the setting restart `sshd` "sudo systemctl restart sshd".
 * After restarting the service generate an "ssh"key by swwitching to the user '<usercreated by user>', follow the `ssh-keygen`,and copy the id_rsa.pub key to the ansible node by using `ssh-copy-id  <user>@<private_ip of node>`.
 * After copying the key , install python3 and pip3 in both the machines and install ansible in the ansible control node.
+----
 ```
 sudo apt update
 sudo apt install software-properties-common
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ```
+----
 * To ping the node : "ansible -i inventory -k -m ping all".
+* To check syntax the ansible playbook.yaml file `ansible-playbook -i hosts --syntax-check php.yaml`.
+* To run the  ansible playbook `ansible-playbook -i hosts  php.yaml`.
+

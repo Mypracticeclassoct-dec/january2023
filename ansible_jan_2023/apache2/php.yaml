@@ -8,3 +8,14 @@
         name: php
         update_cache: yes
         state: present
+    - name: create infofile
+      ansible.builtin.file:
+         path: /var/www/html/info.php
+         state: touch
+    - name: copy content 
+      ansible.builtin.copy:
+        dest: /var/www/html/info.php
+        content: |
+          <?php
+             phpinfo(); 
+           ?>
