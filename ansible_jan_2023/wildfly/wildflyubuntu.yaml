@@ -56,7 +56,7 @@
         src: /opt/wildfly/wildfly-27.0.1.Final/docs/contrib/scripts/systemd/launch.sh
         dest: /opt/wildfly/wildfly-27.0.1.Final/bin/
     - name: add execute permissions to shell files
-      ansible.builtin.command: sudo sh -c 'chmod +x /opt/wildfly/bin/launch.sh'
+      ansible.builtin.command: sudo sh -c 'chmod +x /opt/wildfly/wildfly-27.0.1.Final/bin/launch.sh'
     - name: add chown permission 
       ansible.builtin.command: sudo sh -c 'chown -R wildfly:wildfly /opt/wildfly'
     - name: reload deamon and wildfly
@@ -65,4 +65,5 @@
         name: wildfly 
         enabled: yes
         state: started 
+
     
