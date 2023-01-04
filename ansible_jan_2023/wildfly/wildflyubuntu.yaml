@@ -30,7 +30,7 @@
         path: /opt/wildfly
         owner: wildfly 
         group: wildfly
-        mode: u+rw,g+rw,o+rw
+        mode: 0755
     - name: get tar file
       ansible.builtin.unarchive:
         remote_src: yes
