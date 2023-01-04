@@ -23,7 +23,7 @@
         create_home: yes
         group: wildfly
         home: /opt/wildfly
-        shell: /bin/bash
+        shell: /sbin/nologin
         state: present
     - name: give permissions 
       ansible.builtin.file:
@@ -42,5 +42,5 @@
         state: directory 
     - name: copy 
       ansible.builtin.copy:
-        src: /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf
+        src: /opt/wildfly/wildfly-27.0.1/docs/contrib/scripts/systemd/wildfly.conf
         dest: /etc/wildfly/
