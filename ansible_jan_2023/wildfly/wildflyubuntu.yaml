@@ -45,3 +45,21 @@
         remote_src: yes
         src: /opt/wildfly/wildfly-27.0.1.Final/docs/contrib/scripts/systemd/wildfly.conf
         dest: /etc/wildfly
+    - name: copy2
+      ansible.builtin.copy:
+        remote_src: yes
+        src: /opt/wildfly/wildfly-27.0.1.Final/docs/contrib/scripts/systemd/wildfly.service
+        dest: /etc/systemd/system/
+    - name: copy3
+      ansible.builtin.copy:
+        remote_src: yes
+        src: /opt/wildfly/wildfly-27.0.1.Final/docs/contrib/scripts/systemd/launch.sh
+        dest: /opt/wildfly/bin/
+    - name: add execute permissions to shell files
+      ansible.builtin.command: sudo sh -c 'chmod +x /opt/wildfly/bin/launch.sh'
+    - name: reload deamon and wildfly
+      ansible.builtin.systemd:
+        daemon_reload: yes
+        name: wildfly 
+        enabled: yes
+        state: started 
