@@ -23,16 +23,16 @@
         create_home: yes
         group: wildfly
         home: /opt/wildfly
-        shell: /bin/bash
+        shell: /bin/false
         state: present
     - name: get tar file
       ansible.builtin.unarchive:
         remote_src: yes
         src: https://github.com/wildfly/wildfly/releases/download/27.0.1.Final/wildfly-27.0.1.Final.tar.gz
-        dest: ./tmp
+        dest: /tmp
     - name: rename folder 
       ansible.builtin.copy:
-        src: ./tmp/wildfly-27.0.1.Final
+        src: /tmp/wildfly-27.0.1.Final
         dest: /opt/wildfly
     - name: create /etc/wildfly
       ansible.builtin.file:
