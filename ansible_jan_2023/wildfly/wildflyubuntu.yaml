@@ -10,7 +10,7 @@
         state: present
     - name: create file
       ansible.builtin.file:
-        path: ./tmp
+        path: /tmp
         state: touch
     - name: create group
       ansible.builtin.group:
@@ -32,8 +32,9 @@
         dest: /tmp
     - name: rename folder 
       ansible.builtin.copy:
+        remote_src: true
         src: /tmp/wildfly-27.0.1.Final
-        dest: /opt/wildfly
+        dest: /opt/wildfly/
     - name: create /etc/wildfly
       ansible.builtin.file:
         path: /etc/wildfly
