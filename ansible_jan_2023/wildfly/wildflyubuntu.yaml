@@ -1,6 +1,6 @@
 --- 
 - name: Installing wildfly in ubuntu
-  #hosts: all
+  hosts: localhost
   become: yes
   tasks:
     - name: install java-11
