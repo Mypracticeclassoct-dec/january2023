@@ -29,14 +29,16 @@
       ansible.builtin.unarchive:
         remote_src: yes
         src: https://github.com/wildfly/wildfly/releases/download/27.0.1.Final/wildfly-27.0.1.Final.tar.gz
-        dest: /tmp
+        dest: ./tmp
     - name: rename folder 
       ansible.builtin.copy:
-        src: /tmp/wildfly-27.0.1.Final
+        src: ./tmp/wildfly-27.0.1.Final
         dest: /opt/wildfly
-        owner: wildfly
-        group: wildfly
     - name: create /etc/wildfly
       ansible.builtin.file:
         path: /etc/wildfly
         state: directory 
+    - name: copy 
+      ansible.builtin.copy:
+        src: /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf
+        dest: /etc/wildfly/
