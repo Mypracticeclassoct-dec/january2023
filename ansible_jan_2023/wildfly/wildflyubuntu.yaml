@@ -1,13 +1,13 @@
 --- 
 - name: Installing wildfly in ubuntu
-  hosts: all
+  #hosts: all
   become: yes
   tasks:
     - name: install java-11
       ansible.builtin.apt:
-        - name: openjdk-11-jdk
-          update_cache: yes
-          state: present
+        name: openjdk-11-jdk
+        update_cache: yes
+        state: present
     - name: create file
       ansible.builtin.file:
         path: ./tmp
@@ -40,4 +40,3 @@
       ansible.builtin.file:
         path: /etc/wildfly
         state: directory 
-              
