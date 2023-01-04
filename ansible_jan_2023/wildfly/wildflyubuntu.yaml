@@ -54,7 +54,7 @@
       ansible.builtin.copy:
         remote_src: yes
         src: /opt/wildfly/wildfly-27.0.1.Final/docs/contrib/scripts/systemd/launch.sh
-        dest: /opt/wildfly/bin/
+        dest: /opt/wildfly/wildfly-27.0.1.Final/bin/
     - name: add execute permissions to shell files
       ansible.builtin.command: sudo sh -c 'chmod +x /opt/wildfly/bin/launch.sh'
     - name: add chown permission 
