@@ -1,0 +1,43 @@
+--- 
+- name: Installing wildfly in ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: install java-11
+      ansible.builtin.apt:
+        - name: openjdk-11-jdk
+          update_cache: yes
+          state: present
+    - name: create file
+      ansible.builtin.file:
+        path: ./tmp
+        state: touch
+    - name: create group
+      ansible.builtin.group:
+        name: wildfly
+        system: true 
+        state: present
+    - name: create user
+      ansible.builtin.user:
+        name: wildfly
+        create_home: yes
+        group: wildfly
+        home: /opt/wildfly
+        shell: /bin/false
+        state: present
+    - name: get tar file
+      ansible.builtin.unarchive:
+        remote_src: yes
+        src: https://github.com/wildfly/wildfly/releases/download/27.0.1.Final/wildfly-27.0.1.Final.tar.gz
+        dest: /tmp
+    - name: rename folder 
+      ansible.builtin.copy:
+        src: /tmp/wildfly-27.0.1.Final
+        dest: /opt/wildfly
+        owner: wildfly
+        group: wildfly
+    - name: create /etc/wildfly
+      ansible.builtin.file:
+        path: /etc/wildfly
+        state: directory 
+              
