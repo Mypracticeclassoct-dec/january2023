@@ -44,4 +44,4 @@
       ansible.builtin.copy:
         remote_src: yes
         src: /opt/wildfly/wildfly-27.0.1/docs/contrib/scripts/systemd/wildfly.conf
-        dest: /etc/wildfly/
+        dest: /etc/wildfly
