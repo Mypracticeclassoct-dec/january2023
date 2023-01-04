@@ -25,16 +25,17 @@
         home: /opt/wildfly
         shell: /bin/bash
         state: present
+    - name: give permissions 
+      ansible.builtin.file:
+        path: /opt/wildfly
+        owner: wildfly 
+        group: wildfly
+        mode: u+rw,g+rw,o+rw
     - name: get tar file
       ansible.builtin.unarchive:
         remote_src: yes
         src: https://github.com/wildfly/wildfly/releases/download/27.0.1.Final/wildfly-27.0.1.Final.tar.gz
-        dest: /tmp
-    - name: rename folder 
-      ansible.builtin.copy:
-        remote_src: true
-        src: /tmp/wildfly-27.0.1.Final
-        dest: /opt/wildfly/
+        dest: /opt/wildfly
     - name: create /etc/wildfly
       ansible.builtin.file:
         path: /etc/wildfly
