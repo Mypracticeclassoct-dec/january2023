@@ -67,5 +67,3 @@
         name: wildfly 
         enabled: yes
         state: started 
-
-    
