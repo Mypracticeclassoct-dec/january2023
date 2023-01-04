@@ -23,7 +23,7 @@
         create_home: yes
         group: wildfly
         home: /opt/wildfly
-        shell: /bin/false
+        shell: /sbin/nologin
         state: present
     - name: get tar file
       ansible.builtin.unarchive:
