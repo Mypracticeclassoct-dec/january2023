@@ -57,4 +57,4 @@ Let’s now create a system user and group that will run WildFly service.
 
     `sudo systemctl status wildfly`
 ----
-![Alt text](../../../../AWS_Quality_Thoughts/AWS_Screenshots/Ansible_2023/4thjan/ansible_wildfly_op.png)
+![Alt text](ansible_wildfly_op.png)
