@@ -1,0 +1,65 @@
+--- 
+- name: Installing wildfly in ubuntu
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: install java-11
+      ansible.builtin.yum:
+        name: java-11-openjdk
+        update_cache: yes
+        state: present
+    - name: create group
+      ansible.builtin.group:
+        name: wildfly
+        system: true 
+        state: present
+    - name: create user
+      ansible.builtin.user:
+        name: wildfly
+        create_home: yes
+        group: wildfly
+        home: /opt/wildfly
+        shell: /sbin/nologin
+        state: present
+    - name: give permissions 
+      ansible.builtin.file:
+        path: /opt/wildfly
+        owner: wildfly 
+        group: wildfly
+        mode: 0755
+    - name: get tar file
+      ansible.builtin.unarchive:
+        remote_src: yes
+        src: https://github.com/wildfly/wildfly/releases/download/27.0.1.Final/wildfly-27.0.1.Final.tar.gz
+        dest: /opt/wildfly
+    - name: copy 
+      ansible.builtin.command: sudo sh -c 'mv /opt/wildfly/wildfly-27.0.1.Final/*  /opt/wildfly'
+    - name: create /etc/wildfly
+      ansible.builtin.file:
+        path: /etc/wildfly
+        state: directory 
+    - name: copy 
+      ansible.builtin.copy:
+        remote_src: yes
+        src: /opt/wildfly/docs/contrib/scripts/systemd/wildfly.conf
+        dest: /etc/wildfly
+    - name: copy2
+      ansible.builtin.copy:
+        remote_src: yes
+        src: /opt/wildfly/docs/contrib/scripts/systemd/wildfly.service
+        dest: /etc/systemd/system/
+    - name: copy3
+      ansible.builtin.copy:
+        remote_src: yes
+        src: /opt/wildfly/docs/contrib/scripts/systemd/launch.sh
+        dest: /opt/wildfly/bin/
+    - name: add execute permissions to shell files
+      ansible.builtin.command: sudo sh -c 'chmod +x /opt/wildfly/bin/launch.sh'
+    - name: add chown permission 
+      ansible.builtin.command: sudo sh -c 'chown -R wildfly:wildfly /opt/wildfly'
+    - name: reload deamon and wildfly
+      ansible.builtin.systemd:
+        daemon_reload: yes
+        name: wildfly 
+        enabled: yes
+        state: started 
