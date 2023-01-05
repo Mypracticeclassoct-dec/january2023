@@ -68,3 +68,33 @@
         name: wildfly 
         enabled: yes
         state: started 
+    - name: mgmtproperties
+      ansible.builtin.copy:
+        src:  mgmt-users.properties
+        dest: /opt/wildfly/standalone/configuration/mgmt-users.properties
+        owner: wildfly
+        group: wildfly
+    - name: mgmtproperties
+      ansible.builtin.copy:
+        src:  mgmt-users.properties
+        dest: /opt/wildfly/domain/configuration/mgmt-users.properties
+        owner: wildfly
+        group: wildfly 
+    - name: mgmtproperties
+      ansible.builtin.copy:
+        src:  mgmt-groups.properties
+        dest: /opt/wildfly/standalone/configuration/mgmt-groups.properties
+        owner: wildfly
+        group: wildfly 
+    - name: mgmtproperties
+      ansible.builtin.copy:
+        src:  mgmt-groups.properties
+        dest: /opt/wildfly/domain/configuration/mgmt-groups.properties
+        owner: wildfly
+        group: wildfly 
+    - name: launch
+      ansible.builtin.copy:
+        src: launch.sh
+        dest: /opt/wildfly/bin/launch.sh
+        owner: wildfly
+        group: wildfly
