@@ -1,0 +1,78 @@
+--- 
+- name: Installing wildfly in ubuntu
+  hosts: localhost
+  become: yes
+  vars:
+    java: openjdk-11-jdk
+    user_group: wildfly
+    user: wildfly
+    version: 27.0.1.Final 
+    app: wildfly
+    home_dir: /opt/wildfly 
+    config_dir: /etc/wildfly
+    service: wildfly.service
+  tasks:
+    - name: install java-11
+      ansible.builtin.apt:
+        name: "{{ java }}"
+        update_cache: yes
+        state: present
+    - name: create file
+      ansible.builtin.file:
+        path: /tmp
+        state: touch
+    - name: create group
+      ansible.builtin.group:
+        name: "{{user_group}}"
+        system: true 
+        state: present
+    - name: create user
+      ansible.builtin.user:
+        name: "{{user}}"
+        create_home: yes
+        group: "{{user_group}}"
+        home: "{{home_dir}}"
+        shell: /sbin/nologin
+        state: present
+    - name: give permissions 
+      ansible.builtin.file:
+        path: "{{home_dir}}"
+        owner: "{{user}}" 
+        group: "{{user_group}}"
+        mode: 0755
+    - name: get tar file
+      ansible.builtin.unarchive:
+        remote_src: yes
+        src: "https://github.com/wildfly/wildfly/releases/download/{{version}}/wildfly-{{vesrion}}.tar.gz"
+        dest: "{{home_dir}}"
+    - name: copy 
+      ansible.builtin.command: "sudo sh -c 'mv {{home_dir}}/{{app}}-{{version}}/*  {{home_dir}}'"
+    - name: create /etc/wildfly
+      ansible.builtin.file:
+        path: "{{config_dir}}"
+        state: directory 
+    - name: copy 
+      ansible.builtin.copy:
+        remote_src: yes
+        src: "{{home_dir}}/docs/contrib/scripts/systemd/wildfly.conf"
+        dest: "{{config_dir}}"
+    - name: copy2
+      ansible.builtin.copy:
+        remote_src: yes
+        src: "{{home_dir}}/docs/contrib/scripts/systemd/wildfly.service"
+        dest: /etc/systemd/system/
+    - name: copy3
+      ansible.builtin.copy:
+        remote_src: yes
+        src: "{{home_dir}}/docs/contrib/scripts/systemd/launch.sh"
+        dest: "{{home_dir}}/bin/"
+    - name: add execute permissions to shell files
+      ansible.builtin.command: "sudo sh -c 'chmod +x {{home_dir}}/bin/launch.sh'"
+    - name: add chown permission 
+      ansible.builtin.command: "sudo sh -c 'chown -R wildfly:wildfly {{home_dir}}'"
+    - name: reload deamon and wildfly
+      ansible.builtin.systemd:
+        daemon_reload: yes
+        name: "{{service}}" 
+        enabled: yes
+        state: started 
