@@ -33,7 +33,7 @@
         src: https://github.com/wildfly/wildfly/releases/download/27.0.1.Final/wildfly-27.0.1.Final.tar.gz
         dest: /opt/wildfly
     - name: copy 
-      ansible.builtin.command: sudo sh -c 'mv /opt/wildfly/wildfly-27.0.1.Final/*  /opt/wildfly'
+      ansible.builtin.command: sudo sh -c 'cp /opt/wildfly/wildfly-27.0.1.Final/*  /opt/wildfly'
     - name: create /etc/wildfly
       ansible.builtin.file:
         path: /etc/wildfly
