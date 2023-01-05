@@ -1,6 +1,6 @@
 --- 
 - name: Installing wildfly in ubuntu
-  hosts: localhost
+  hosts: *
   become: yes
   vars:
     java: openjdk-11-jdk
