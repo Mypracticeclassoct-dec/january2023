@@ -43,7 +43,7 @@
     - name: get tar file
       ansible.builtin.unarchive:
         remote_src: yes
-        src: "https://github.com/wildfly/wildfly/releases/download/{{version}}/wildfly-{{vesrion}}.tar.gz"
+        src: "https://github.com/wildfly/wildfly/releases/download/{{version}}/wildfly-{{version}}.tar.gz"
         dest: "{{home_dir}}"
     - name: copy 
       ansible.builtin.command: "sudo sh -c 'mv {{home_dir}}/{{app}}-{{version}}/*  {{home_dir}}'"
