@@ -1,0 +1,38 @@
+--- 
+ - name: build Haproxy server 
+   hosts: localhost
+   become: yes
+   tasks:
+    - name: update package 
+      ansible.builtin.apt:
+        name: haproxy
+        update_cache: true 
+        state: present 
+    - name: copying the configuration file 
+      ansible.builtin.copy:
+      remote_src: yes
+      src: /etc/haproxy/haproxy.cfg
+      dest: /etc/haproxy/haproxy.cfg.bk
+    - name: changing the configuration of haproy.cfg file
+      ansible.builtin.copy:
+        remote_src: false 
+        src: haproxy.cfg 
+        dest: /etc/haproxy/haproxy.cfg
+    - name: restart haproxy 
+      ansible.builtin.systemd:
+        name: haproxy
+        enabled: yes
+        state: restarted
+    - name: server1 configuration 
+      hosts: 
+      ansible.builtin.copy:
+        remote_src: false
+        src: 000-default.conf
+        dest: /etc/apache2/sites-available/000-default.conf
+    - name: server1 configuration
+      hosts:
+      ansible.builtin.copy:
+        remote_src: false
+        src:  ports.conf
+        dest: /etc/apache2/ports.conf
+    
