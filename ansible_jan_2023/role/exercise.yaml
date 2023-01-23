@@ -1,0 +1,6 @@
+---
+- name: Installing the mangodb
+  hosts: all
+  roles:
+    - role: mongodb-replicaset
+  become: yes
