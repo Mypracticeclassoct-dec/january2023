@@ -1,0 +1,41 @@
+--- 
+- name: installing lamp stack  
+  become: yes
+  hosts : all 
+  tasks:
+    - name: install apache 
+      ansible.builtin.apt:
+        name: apache2 
+        update_cache: yes 
+        state: present 
+      when: ansible_facts['distribution'] == "Ubuntu"
+      notify:
+        - enable and restart apache2
+    - name: instsll php 
+      ansible.builtin.apt:
+        name: 
+          - php 
+          - libapache2-mod-php
+          - php-mysql
+        state: present 
+      when: ansible_facts['distribution'] == "Ubuntu" 
+    - name: copy a file 
+      ansible.builtin.copy:
+        remote_src: false 
+        src: /info.php 
+        dest: /var/www/html/info.php 
+      notify: 
+        - enable and restart php 
+  handlers:
+    - name: enable and restart apache2
+      ansible.builtin.service:
+        name: apache2 
+        enabled: true 
+        state: restarted 
+    - name: enable and restart php 
+      ansible.builtin.service:
+        name: php 
+        enabled: true 
+        state: restarted 
+
+    
