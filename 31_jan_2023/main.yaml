@@ -1,6 +1,6 @@
 ---
 - name: installing apache
-  hosts: all
+  hosts: localhost
   become: true
   tasks:
     - name:  install apache2
