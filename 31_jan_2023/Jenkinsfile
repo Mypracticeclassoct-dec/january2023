@@ -1,0 +1,10 @@
+pipeline{
+    agent { Label 'ansible'}
+    stages{
+        stage ('buiid'){
+            steps {
+                git url : 
+            }
+        }
+    }
+}
