@@ -9,7 +9,7 @@ pipeline{
         }
         stage ('install apache'){
             steps{
-                sh ' cd january2023/31_jan_2023'
+                sh ' cd ~/january2023/31_jan_2023'
                 sh 'ansible-playbook -i hosts --syntax-check main.yaml'
                 sh 'ansible-playbook -i hosts main.yaml' 
             }
