@@ -1,0 +1,10 @@
+---
+- name: installing apache
+  hosts: all
+  become: yes
+  tasks:
+    - name:  install apache2
+      ansible.builtin.apt:
+        - name: apache2
+          update_cahce: yes
+          state: present
