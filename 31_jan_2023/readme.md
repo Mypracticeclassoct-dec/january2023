@@ -25,3 +25,14 @@
 *  go to manage jenkins and configure the ansible node , here i didn't create new user i have used the existing ubuntu user.
 *  After the node is connected the configuration is done.
 ------------------
+## Step2 : Install Terraform and create an resource :
+* Install Terraform in the ansible node.
+       ``` sudo apt update
+         sudo apt install  software-properties-common gnupg2 curl
+          curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg
+        sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/
+        sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt install terraform
+       ```
+* Write a terraform file to create an vpc or subnet.
+* write a declarative pipeline to run the terraform.
