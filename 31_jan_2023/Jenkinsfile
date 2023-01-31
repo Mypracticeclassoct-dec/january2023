@@ -1,9 +1,16 @@
 pipeline{
-    agent { Label 'ansible'}
+    agent { label 'ansible'}
     stages{
-        stage ('buiid'){
+        stage ('build'){
             steps {
-                git url : 
+                git url : 'https://github.com/Mypracticeclassoct-dec/january2023.git' , branch: 'main'
+
+            }
+        }
+        stage ('install apache'){
+            steps{
+                sh 'ansible-playbook -i hosts --syntax-check main.yaml'
+                sh 'ansible-playbook -i hosts main.yaml' 
             }
         }
     }
