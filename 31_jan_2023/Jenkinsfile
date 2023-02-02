@@ -11,6 +11,9 @@ pipeline{
             steps{
                 sh 'ansible-playbook -i hosts --syntax-check 31_jan_2023/main.yaml'
                 sh 'ansible-playbook -i hosts 31_jan_2023/main.yaml' 
+                sh 'echo running terraform build'
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve'
             }
         }
     }
